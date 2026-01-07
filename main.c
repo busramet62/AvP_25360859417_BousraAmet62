@@ -4,13 +4,13 @@
 #include <string.h>
 #define PI 3.14159265359
 
-
+//gezegenleri diziye atıyoruz. Güneşe yakından uzağa doğru
 const char *gezegen_isimleri[] = {
     "Merkur", "Venus", "Dunya", "Mars",
     "Jupiter", "Saturn", "Uranus", "Neptun"
 };
 
-
+//fonksiyonları üstte tanımlayıp en altta yazıyoruz görüntü kirliliği olmaması için
 void menu_yazdir();
 double deger_kontrol(double val);
 void serbest_dusme(double *g_ptr, int boyut);
@@ -24,12 +24,12 @@ void ip_gerilmesi(double *g_ptr, int boyut);
 void asansor_deneyi(double *g_ptr, int boyut);
 
 int main() {
-    char bilim_insani[100];
+    char bilim_insani[100]; // bilim insanının adını alıyoruz
     printf("Bilim Insaninin Adini Giriniz: ");
     fgets(bilim_insani, sizeof(bilim_insani), stdin);
     bilim_insani[strcspn(bilim_insani, "\n")] = 0;
 
-    double yercekimleri[] = {3.7, 8.87, 9.807, 3.721, 24.79, 10.44, 8.69, 11.15};
+    double yercekimleri[] = {3.7, 8.87, 9.807, 3.721, 24.79, 10.44, 8.69, 11.15}; // gezegenlerin yerçekim ivmelerini sırasıyla bir diziye atıyoruz
     int gezegen_sayisi = 8;
     int secim = 0;
 
@@ -37,10 +37,10 @@ int main() {
     printf("Uzay Simulasyonu Hazirlaniyor...\n");
 
     while (secim != -1) {
-        menu_yazdir();
+        menu_yazdir(); // her deney sonrası tekrardan menüyü yazdırır
         printf("\nLutfen bir deney seciniz (Cikis icin -1 tuslayin) : ");
         scanf("%d", &secim);
-
+//-1 girildiğinde program sonlanır
         if (secim == -1) {
             printf("Program sonlandiriliyor... \nIyi gunler %s.\n", bilim_insani);
             break;
@@ -65,7 +65,7 @@ int main() {
             break;
             case 9: asansor_deneyi(yercekimleri, gezegen_sayisi);
             break;
-            default: printf("Gecersiz numara! Deneylerimiz 1-9 arasidir.\n");
+            default: printf("Gecersiz numara! Deneylerimiz 1-9 arasidir.\n"); //1-9 arası ve -1 harici sayı girilirse uyarı verip tekrar menüyü yazdırır
         }
     } return 0;
 }
@@ -73,11 +73,11 @@ int main() {
 void menu_yazdir() {
     printf("\n--- DENEY LISTESI ---\n1. Serbest Dusme Deneyi\n2. Yukari Atis Deneyi\n3. Agirlik Deneyi\n4. Kutlecekimsel Potansiyel Enerji Deneyi\n5. Hidrostatik Basinc Deneyi\n6. Arsimet Kaldirma Kuvveti Deneyi\n7. Basit Sarkac Periyodu Deneyi\n8. Sabit Ip Gerilmesi Deneyi\n9. Asansor Deneyi\n");
 }
-
+//- değerleri + ya çevirmek için kullanılan fonksiyonumuz
 double deger_kontrol(double val) {
     return (val < 0) ? -val : val;
 }
-
+// 1. Serbest Düşme Deneyi: h = 1/2 * g * t^2
 void serbest_dusme(double *g_ptr, int boyut) {
     double t;
     int i;
@@ -98,7 +98,7 @@ void serbest_dusme(double *g_ptr, int boyut) {
 
 }
 
-
+// 2. Yukarı Atış Deneyi: h_max = v0^2 / (2g)
 void yukari_atis(double *g_ptr, int boyut) {
     double v0;
     int i;
@@ -117,7 +117,7 @@ void yukari_atis(double *g_ptr, int boyut) {
     }
 }
 
-
+// 3. Ağırlık Deneyi: G = m * g
 void agirlik_hesapla(double *g_ptr, int boyut) {
     double m;
     int i;
@@ -136,7 +136,7 @@ void agirlik_hesapla(double *g_ptr, int boyut) {
     }
 }
 
-
+// 4. Potansiyel Enerji Deneyi: Ep = m * g * h
 void potansiyel_enerji(double *g_ptr, int boyut) {
     double m, h;
     int i;
@@ -157,6 +157,7 @@ void potansiyel_enerji(double *g_ptr, int boyut) {
     }
 }
 
+// 5. Hidrostatik Basınç Deneyi: P = rho * g * h
 void hidrostatik_basinc(double *g_ptr, int boyut) {
     double rho, h;
      int i;
@@ -176,7 +177,7 @@ void hidrostatik_basinc(double *g_ptr, int boyut) {
     }
 }
 
-
+// 6. Arşimet Kaldırma Kuvveti: Fk = rho * g * V
 void arsimet_kaldirma(double *g_ptr, int boyut) {
     double rho, V;
     int i;
@@ -196,6 +197,7 @@ void arsimet_kaldirma(double *g_ptr, int boyut) {
     }
 }
 
+// 7. Basit Sarkaç Periyodu: T = 2 * pi * sqrt(L / g)
 void basit_sarkac(double *g_ptr, int boyut) {
     double L;
      int i;
@@ -214,6 +216,7 @@ void basit_sarkac(double *g_ptr, int boyut) {
     }
 }
 
+// 8. Sabit İp Gerilmesi: T = m * g
 void ip_gerilmesi(double *g_ptr, int boyut) {
     double m;
     int i;
@@ -232,11 +235,11 @@ void ip_gerilmesi(double *g_ptr, int boyut) {
     }
 }
 
-
-
+// 9. Asansör Deneyi: N = m(g + a) veya m(g - a)
 void asansor_deneyi(double *g_ptr, int boyut) {
     double m, a;
-    int yon,i;
+    int yon,i; //yon icin 1: Yukarı Hızlanan/Aşağı Yavaşlayan, 2: Aşağı Hızlanan/Yukarı Yavaşlayan
+
 
     printf("\n--- Asansor Deneyi ---\n");
     printf("Cismin kutlesi (m) [kg]: ");
@@ -249,7 +252,7 @@ void asansor_deneyi(double *g_ptr, int boyut) {
     printf("Seciminiz: ");
     scanf("%d", &yon);
     m = deger_kontrol(m);
-    a = deger_kontrol(a);
+    a = deger_kontrol(a); // İvmeyi pozitif alıp yönünü de kullanıcıdan aldım
     printf("\nSonuclar (m: %.2f kg, a: %.2f m/s^2):\n", m, a);
     printf("%-10s | %-15s\n", "Gezegen", "Etkin Agirlik (N)");
     printf("-------------------------------\n");
@@ -257,7 +260,7 @@ void asansor_deneyi(double *g_ptr, int boyut) {
     for (i = 0; i < boyut; i++) {
         double g = *(g_ptr + i);
         double N = 0;
-
+    // Formül seçimi
         if (yon == 1) {
              N = m * (g + a);
         } else {
